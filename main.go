@@ -9,5 +9,16 @@ import (
 
 func main() {
 	database.InitDB()
+
+	// option := cors.Options{
+	// 	AllowMethods:     []string{"*"},
+	// 	AllowHeaders:     []string{"*"},
+	// 	ExposeHeaders:    []string{"Content-Length"},
+	// 	AllowOrigins:     []string{"*"},
+	// 	AllowCredentials: true,
+	// }
+
+	// beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&option))
+
 	beego.Run()
 }

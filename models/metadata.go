@@ -7,12 +7,12 @@ import (
 )
 
 type Metadata struct {
-	ID        uint   `gorm:"primaryKey"`
-	Type      string `gorm:"unique;type:varchar(255)"`
-	Value     string
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	DeletedAt gorm.DeletedAt `gorm:"index"`
+	ID        uint           `gorm:"primaryKey" json:"id"`
+	Type      string         `gorm:"unique;type:varchar(255)" json:"type"`
+	Value     string         `json:"value"`
+	CreatedAt time.Time      `json:"createdAt"`
+	UpdatedAt time.Time      `json:"updatedAt"`
+	DeletedAt gorm.DeletedAt `gorm:"index" json:"deletedAt"`
 }
 
 func (Metadata) TableName() string {

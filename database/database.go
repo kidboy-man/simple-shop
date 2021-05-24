@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/joho/godotenv"
+	"github.com/kidboy-man/simple-shop/conf"
 	"github.com/kidboy-man/simple-shop/models"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 var db *gorm.DB //database
@@ -27,13 +29,13 @@ func InitDB() {
 	dbUri := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, username, dbName, password) //Build connection string
 	fmt.Println(dbUri)
 
-	conn, err := gorm.Open("postgres", dbUri)
+	conn, err := gorm.Open(postgres.Open(dbUri), &gorm.Config{})
 	if err != nil {
 		fmt.Print(err)
 	}
 
-	db = conn
-	db.Debug().AutoMigrate(&models.Metadata{}) //Database migration
+	conf.AppConfig.DbClient = conn
+	conf.AppConfig.DbClient.Debug().AutoMigrate(&models.Metadata{}) //Database migration
 }
 
 //returns a handle to the DB object
